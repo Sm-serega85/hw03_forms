@@ -9,7 +9,7 @@ NUNBER_POSTS = 10
 
 
 def index(request):
-    post_list = Post.objects.all()
+    post_list = Post.objects.all().order_by('-pub_date')
     title = 'Последние обновления на сайте'
     paginator = Paginator(post_list, NUNBER_POSTS)
     page_number = request.GET.get('page')
@@ -23,7 +23,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    post_list = group.posts.all()
+    post_list = group.posts.all().order_by('-pub_date')
     paginator = Paginator(post_list, NUNBER_POSTS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -36,7 +36,7 @@ def group_posts(request, slug):
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    author_posts = author.posts.all()
+    author_posts = author.posts.all().order_by('-pub_date')
     paginator = Paginator(author_posts, NUNBER_POSTS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
