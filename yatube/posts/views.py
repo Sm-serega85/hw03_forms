@@ -7,7 +7,7 @@ from .models import Group, Post, User
 
 
 def index(request):
-    post_list = Post.objects.all().order_by('-pub_date')
+    post_list = Post.objects.all()
     context = {
         'page_obj': get_page_paginator(request, post_list)
     }
@@ -16,7 +16,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    post_list = group.posts.all().order_by('-pub_date')
+    post_list = group.posts.all()
     context = {
         'group': group,
         'page_obj': get_page_paginator(request, post_list)
@@ -26,7 +26,7 @@ def group_posts(request, slug):
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    author_posts = author.posts.all().order_by('-pub_date')
+    author_posts = author.posts.all()
     context = {
         'author': author,
         'page_obj': get_page_paginator(request, author_posts)

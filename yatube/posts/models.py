@@ -28,9 +28,11 @@ class Post(models.Model):
         null=True,
         related_name='posts'
     )
-
-    def __str__(self):
-        return self.text
+    # verbose_name = models.ForeignKey(
+    # related_name='posts'
 
     class Meta:
         ordering = ("-pub_date",)
+
+    def __str__(self):
+        return self.text
